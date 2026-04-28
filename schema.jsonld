@@ -1,0 +1,60 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "agency_id": {
+      "@id": "policedata:agencyId",
+      "@type": "@id"
+    },
+    "confirmation": "policedata:confirmedAt",
+    "disposition": "policedata:disposition",
+    "event_type": "policedata:purgeEventType",
+    "evidence": "policedata:evidence",
+    "finding": "policedata:finding",
+    "first_missing": "policedata:firstMissingAt",
+    "id": "@id",
+    "incident_quarter": "policedata:incidentQuarter",
+    "incident_type": "policedata:incidentType",
+    "k_anon_cohort": "policedata:kAnonCohort",
+    "officer_token": "policedata:officerToken",
+    "policedata": "https://policedata.ca/vocab#",
+    "published_at": "schema:datePublished",
+    "purge_count": "policedata:purgeCount",
+    "schema": "https://schema.org/",
+    "source_capture_id": "policedata:sourceCaptureId",
+    "source_url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "summary_redacted": "schema:description",
+    "summary_redacted_fr": {
+      "@id": "schema:description",
+      "@language": "fr"
+    },
+    "transparency_grade": "policedata:transparencyGrade",
+    "tribunal_body": "policedata:tribunalBody",
+    "wayback_url": {
+      "@id": "schema:archivedAt",
+      "@type": "@id"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "https://policedata.ca/data/pub_incidents.jsonl",
+      "@type": "schema:Dataset",
+      "schema:description": "Anonymized police disciplinary incidents, one per line. Each row matches $defs/pub_incident in schema.json.",
+      "schema:name": "policedata.ca published incidents"
+    },
+    {
+      "@id": "https://policedata.ca/data/pub_agency_scorecards.jsonl",
+      "@type": "schema:Dataset",
+      "schema:description": "Per-agency transparency grades + rates. Each row matches $defs/pub_agency_scorecard in schema.json.",
+      "schema:name": "policedata.ca agency scorecards"
+    },
+    {
+      "@id": "https://policedata.ca/data/purge_events.jsonl",
+      "@type": "schema:Dataset",
+      "schema:description": "Confirmed removals/edits of records from their original oversight sources. Each row matches $defs/purge_event.",
+      "schema:name": "policedata.ca purge ledger"
+    }
+  ]
+}

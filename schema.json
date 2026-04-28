@@ -1,0 +1,235 @@
+{
+  "$defs": {
+    "pub_agency_scorecard": {
+      "additionalProperties": false,
+      "properties": {
+        "agency_id": {
+          "type": "string"
+        },
+        "atip_response_rate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "computed_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "finding_rate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "median_days_to_disclosure": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "period": {
+          "type": "string"
+        },
+        "proactive_disclosure_rate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "publication_ban_rate": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "purge_count": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "transparency_grade": {
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "F"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "agency_id",
+        "period",
+        "purge_count",
+        "transparency_grade",
+        "computed_at"
+      ],
+      "title": "PubAgencyScorecard",
+      "type": "object"
+    },
+    "pub_incident": {
+      "additionalProperties": false,
+      "description": "One publishable disciplinary incident, fully anonymized per SPEC \u00a79. officer_token is an HMAC-SHA256 slice stable across incidents involving the same canonical officer, until the next annual salt rotation.",
+      "properties": {
+        "agency_id": {
+          "type": "string"
+        },
+        "disposition": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "finding": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "incident_quarter": {
+          "description": "YYYY-Qn for large agencies (300+ sworn) and oversight bodies; YYYY for mid-tier forces (50\u2013299 sworn). SPEC \u00a79.2 + ANONYMIZATION.md tiered floor \u2014 exact dates never publish.",
+          "pattern": "^[0-9]{4}(-Q[1-4])?$",
+          "type": "string"
+        },
+        "incident_type": {
+          "type": "string"
+        },
+        "k_anon_cohort": {
+          "description": "Cells with count < 5 are suppressed, not published (SPEC \u00a79.2).",
+          "minimum": 5,
+          "type": "integer"
+        },
+        "officer_token": {
+          "description": "HMAC-SHA256 slice; 12 hex chars. Rotates annually with the salt.",
+          "pattern": "^[0-9a-f]{12}$",
+          "type": "string"
+        },
+        "published_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "source_capture_id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "summary_redacted": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "summary_redacted_fr": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tribunal_body": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "wayback_url": {
+          "format": "uri",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "officer_token",
+        "agency_id",
+        "incident_quarter",
+        "incident_type",
+        "source_capture_id",
+        "published_at",
+        "k_anon_cohort"
+      ],
+      "title": "PubIncident",
+      "type": "object"
+    },
+    "purge_event": {
+      "additionalProperties": false,
+      "description": "A confirmed removal, redirect, or substantive content deletion observed on an official oversight source. Public record of what disappeared and when (SPEC \u00a710).",
+      "properties": {
+        "agency_id": {
+          "type": "string"
+        },
+        "confirmation": {
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "event_type": {
+          "enum": [
+            "404",
+            "410",
+            "451",
+            "redirect",
+            "content_removed",
+            "record_delisted",
+            "silent_edit"
+          ],
+          "type": "string"
+        },
+        "evidence": {
+          "type": "object"
+        },
+        "first_missing": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "last_seen_capture": {
+          "format": "uuid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "public": {
+          "type": "boolean"
+        },
+        "public_at": {
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_url": {
+          "format": "uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "agency_id",
+        "source_url",
+        "first_missing",
+        "event_type",
+        "evidence",
+        "public"
+      ],
+      "title": "PurgeEvent",
+      "type": "object"
+    }
+  },
+  "$id": "https://policedata.ca/data/schema.json?v=1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Row shapes for the JSONL files published under the same directory as this schema. Every line of pub_incidents.jsonl matches $defs/pub_incident, and so on.",
+  "title": "policedata.ca public export schema"
+}
