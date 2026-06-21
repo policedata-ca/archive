@@ -1,9 +1,9 @@
 {
-  "exported_at": "2026-06-16T21:42:49.143473+00:00",
+  "exported_at": "2026-06-21T16:18:22.688205+00:00",
   "format_version": "1",
   "row_counts": {
     "pub_agency_scorecards.jsonl": 205,
     "pub_incidents.jsonl": 338,
-    "purge_events.jsonl": 478
+    "purge_events.jsonl": 493
   }
 }
